@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
-    <title>Danh sách task</title>
+    <title>Thay đổi project</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -58,12 +57,12 @@
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="dropdownId"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                ${ USER_LOGIN.fullname }
+                                Cybersoft
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownId">
                                 <a class="dropdown-item" href="">Thông tin cá nhân</a>
                                 <a class="dropdown-item" href="#">Cài đặt</a>
-                                <a class="dropdown-item" href="<%= request.getContextPath() %>/logout">Thoát</a>
+                                <a class="dropdown-item" href="#">Thoát</a>
                             </div>
                         </li>
                     </ul>
@@ -72,59 +71,50 @@
 
             <!-- CONTENT -->
             <section id="admin-content" class="p-3">
-                <h3 class="mb-3">Danh sách Project</h3>
-                <div class="row">
-                    <div class="col-md-8">
-                        <a href="<%=request.getContextPath() %>/task/add?idP=<%=request.getAttribute("idP") %>" class="btn btn-primary">Thêm mới</a>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Tìm kiếm...">
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="basic-addon2"><i class="fa fa-search"></i></span>
+                <h3 class="mb-4 text-center">Chỉnh sửa thông tin project</h3>
+                <p class="text-center text-danger">${ message }</p>
+                <form method="post" action="<%= request.getContextPath() %>/project/edit">
+                    <div class="row">
+                        <div class="col-md-6 m-auto">
+                            <div class="form-group">
+                                <label>Tên Project</label>
+                                <input type="text" name="projectName" class="form-control" value="${project.projectName }"required/>
+                            </div>
+                            <div class="form-group">
+                                <label>Ngày bắt đầu</label>
+                                <input type="date" id="start" name="startDate" class="form-control" value="${project.startDate }" required/>
+                            </div>
+                            <div class="form-group">
+                                <label>Ngày kết thúc</label>
+                                <input type="date" id="end" name="endDate" class="form-control" value="${project.endDate }" required/>
+                            </div>
+                            <div class="form-group">
+                                <label>Leader Id</label>
+                                <input type="text" name="leaderId" class="form-control" value="${project.leaderId }" readonly required/>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" name="projectId" value="${project.projectId }" class="form-control"/>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">Lưu lại</button>
+                                <a class="btn btn-secondary" href="<%=request.getContextPath()%>/project">Quay lại</a>
                             </div>
                         </div>
                     </div>
-                </div>
-                <table class="table table-bordered table-hover mt-3">
-                    <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Tên Task</th>
-                            <th>Ngày bắt đầu</th>
-                            <th>Ngày kết thúc</th>
-                            <th>Trạng thái</th>
-                            <th>Người phụ trách</th>
-                            <th>#</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    	<c:forEach items="${ taskList }" var="item" varStatus="listInformation">
-	                        <tr>
-	                            <td>${ listInformation.count }</td>
-	                            <td>${ item.taskName }</td>
-	                            <td>${ item.startDate }</td>
-	                            <td>${ item.endDate }</td>
-	                            <td>${ item.statusId }</td>
-	                            <td>${ item.userId }</td>
-	                            <td>
-	                                <a href="<%= request.getContextPath() %>/task/edit?idP=<%=request.getAttribute("idP") %>&id=${item.taskId}" class="btn btn-sm btn-info">
-	                                    <i class="fa fa-pencil-square-o"></i>
-	                                </a>
-	                                <a href="<%= request.getContextPath() %>/task/delete?idP=<%=request.getAttribute("idP") %>&id=${item.taskId}" class="btn btn-sm btn-danger">
-	                                    <i class="fa fa-trash-o"></i>
-	                                </a>
-	                            </td>
-	                        </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
+                </form>
             </section>
         </div>
     </div>
+    
+    
+    
     <script src="<%= request.getContextPath() %>/static/js/jquery.slim.min.js"></script>
     <script src="<%= request.getContextPath() %>/static/js/popper.min.js"></script>
     <script src="<%= request.getContextPath() %>/static/js/bootstrap.min.js"></script>
+    
+    
 </body>
+
+
 
 </html>

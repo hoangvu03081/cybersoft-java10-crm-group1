@@ -22,21 +22,48 @@ public class TaskController extends HttpServlet{
 		}
 @Override
 protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	int idProject = Integer.parseInt(req.getParameter("idP"));
+	req.setAttribute("idP", idProject);
 	switch(req.getServletPath()) {
+		
 	case "/task":
-		int idProject = Integer.parseInt(req.getParameter("idP"));
 		ArrayList<TaskDto> taskList = (ArrayList<TaskDto>) taskService.getTaskByProjectId(idProject);
 		req.setAttribute("taskList", taskList);
 		req.getRequestDispatcher("/WEB-INF/views/task/index.jsp").forward(req, resp);
 		break;
-	
+	case "/task/add":
+		/*
+		RoleService roleService = new RoleService();
+		ArrayList<RoleDto> roleList = roleService.getRoleList();
+		req.setAttribute("roleList", roleList);
+		*/
+		req.getRequestDispatcher("/WEB-INF/views/task/add.jsp").forward(req, resp);
+		
+		break;
+	case "/task/delete":
+		int deleteId = Integer.parseInt(req.getParameter("id"));
+		taskService.deleteTask(deleteId);
+		System.out.println(req.getParameter("idP"));
+		resp.sendRedirect(req.getContextPath()+"/task?idP="+req.getParameter("idP"));
+		break;
+	case "/task/edit":
+		
+		break;
 	}
 	
 }
 
 @Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		switch(req.getServletPath()) {
+		case "/task/add":
+			
+			break;
+		case "/task/edit":
+			
+			break;
+		}
+	}
 	
 	}
 }
