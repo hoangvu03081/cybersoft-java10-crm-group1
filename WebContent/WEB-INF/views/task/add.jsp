@@ -74,12 +74,12 @@
             <section id="admin-content" class="p-3">
                 <h3 class="mb-4 text-center">Thêm mới quyền</h3>
                 <p class="text-center text-danger">${ message }</p>
-                <form method="post" action="<%= request.getContextPath() %>/project/add">
+                <form method="post" action="<%= request.getContextPath() %>/task/add?idP=<%=request.getAttribute("idP")%>">
                     <div class="row">
                         <div class="col-md-6 m-auto">
                             <div class="form-group">
                                 <label>Tên task</label>
-                                <input type="text" name="projectName" class="form-control" required/>
+                                <input type="text" name="taskName" class="form-control" required/>
                             </div>
                             <div class="form-group">
                                 <label>Ngày bắt đầu</label>
@@ -91,17 +91,24 @@
                             </div>
                             <div class="form-group">
                                 <label>Status</label>
-                                <select class="form-control" name="status">
-                                <c:forEach items="${ roleList }" var="item">
-                                	<option value="${item.roleId }">${item.roleName}</option>
-                                </c:forEach>
-								  
+                                <select class="form-control" name="statusId">
+                                	<option value="1">Done</option>
+								 	<option value="2">In progress</option>
 								</select>
                             </div>
                             <div class="form-group">
-                                <label>ID người dùng</label>
-                                <input type="text" name="projectName" class="form-control" required/>
+                                <label>ID người dùng:</label>
+								<input list="users" name="userId" class="form-control" required>
+								
+								<datalist id="users">
+								<c:forEach items="${userList}" var="item">
+									<option value="${item.userId }">${item.fullname}</option>
+								</c:forEach>
+								  <option value="No name">
+								</datalist>
                             </div>
+                            
+                            
                             <div class="form-group">
                                 <button type="submit" class="btn btn-success" disabled>Lưu lại</button>
                                 <a class="btn btn-secondary" href="<%=request.getContextPath()%>/task?idP=<%=request.getAttribute("idP")%>">Quay lại</a>
@@ -123,6 +130,14 @@
    		$(document).ready(function(){
    			$('#start, #end').on('keyup', function () {
    			  if ($('#start').val() > $('#end').val()) 
+   				$('button[type=submit]').prop('disabled', true);
+   			  	 else 
+   				$('button[type=submit]').prop('disabled', false);
+   			});
+   		});
+   		$(document).ready(function(){
+   			$('#start, #end').focusout(function () {
+   			  if (!$('#start').val() && !('#end').val()) 
    				$('button[type=submit]').prop('disabled', true);
    			  	 else 
    				$('button[type=submit]').prop('disabled', false);

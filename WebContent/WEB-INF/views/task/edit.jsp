@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
-    <title>Thay đổi project</title>
+    <title>Chỉnh sửa task</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -71,33 +72,51 @@
 
             <!-- CONTENT -->
             <section id="admin-content" class="p-3">
-                <h3 class="mb-4 text-center">Chỉnh sửa thông tin project</h3>
+                <h3 class="mb-4 text-center">Thêm mới quyền</h3>
                 <p class="text-center text-danger">${ message }</p>
-                <form method="post" action="<%= request.getContextPath() %>/project/edit">
+                <form method="post" action="<%= request.getContextPath() %>/task/edit?idP=<%=request.getAttribute("idP")%>">
                     <div class="row">
                         <div class="col-md-6 m-auto">
                             <div class="form-group">
-                                <label>Tên Project</label>
-                                <input type="text" name="projectName" class="form-control" value="${project.projectName }"required/>
+                                <label>Tên task</label>
+                                <input type="text" name="taskName" class="form-control" value="${task.taskName }" required/>
                             </div>
                             <div class="form-group">
                                 <label>Ngày bắt đầu</label>
-                                <input type="date" id="start" name="startDate" class="form-control" value="${project.startDate }" required/>
+                                <input type="date" id="start" name="startDate" class="form-control" value="${task.startDate }" required/>
                             </div>
                             <div class="form-group">
                                 <label>Ngày kết thúc</label>
-                                <input type="date" id="end" name="endDate" class="form-control" value="${project.endDate }" required/>
+                                <input type="date" id="end" name="endDate" class="form-control" value="${task.endDate }" required/>
                             </div>
                             <div class="form-group">
-                                <label>Leader Id</label>
-                                <input type="text" name="leaderId" class="form-control" value="${project.leaderId }" readonly required/>
+                                <label>Status</label>
+                                <select class="form-control" name="statusId">
+                                	<option value="1" <c:if test="${task.statusId==1 }">selected="selected"</c:if>>Done</option>
+								 	<option value="2" <c:if test="${task.statusId==2 }">selected="selected"</c:if>>In progress</option>
+								</select>
+								  
+								</select>
                             </div>
                             <div class="form-group">
-                                <input type="hidden" name="projectId" value="${project.projectId }" class="form-control"/>
+                                <label>ID người dùng:</label>
+								<input list="users" name="userId" class="form-control" required>
+								
+								<datalist id="users">
+								<c:forEach items="${userList}" var="item">
+									<option value="${item.userId }" <c:if test="${task.userId==item.userId }">selected="selected"</c:if> >${item.fullname}</option>
+								</c:forEach>
+								  <option value="No name">
+								</datalist>
                             </div>
+                            
                             <div class="form-group">
-                                <button type="submit" class="btn btn-success">Lưu lại</button>
-                                <a class="btn btn-secondary" href="<%=request.getContextPath()%>/project">Quay lại</a>
+                                <input type="hidden" name="taskId" value="${task.taskId }"/>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success" >Lưu lại</button>
+                                <a class="btn btn-secondary" href="<%=request.getContextPath()%>/task?idP=<%=request.getAttribute("idP")%>">Quay lại</a>
                             </div>
                         </div>
                     </div>
