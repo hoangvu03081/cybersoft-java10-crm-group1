@@ -65,6 +65,11 @@ public class AuthFilter implements Filter {
 			resp.sendRedirect(req.getContextPath() + "/403");
 			return;
 		}
+		
+		if ( action.equals("/project/delete") && roleName.equals("ROLE_LEADER")) {
+			resp.sendRedirect(req.getContextPath() + "/403");
+			return;
+		}
 
 		if ((action.equals("/task/edit") || action.equals("/task/delte")) && roleName.equals("ROLE_MEMBER")) {
 			resp.sendRedirect(req.getContextPath() + "/403");
