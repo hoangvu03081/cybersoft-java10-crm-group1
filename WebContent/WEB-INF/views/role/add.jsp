@@ -48,7 +48,8 @@
                 </li>
                 </c:if>
             </ul>
-        </div>
+		</div>
+		<!-- END SIDE BAR -->
 
         <div id="admin-wrapper">
             <!-- HEADER -->

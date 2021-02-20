@@ -73,6 +73,8 @@ public class UserController extends HttpServlet {
 			
 			UserDto dto = new UserDto(email, password, fullname, avatar, roleId);
 		
+			
+			
 			if( userService.addUser(dto) < 0 ) {
 				req.setAttribute("message" , "Thêm mới thất bại");
 				req.getRequestDispatcher("/WEB-INF/views/user/add.jsp").forward(req, resp);
@@ -91,7 +93,9 @@ public class UserController extends HttpServlet {
 			
 			UserDto dtoEdit = new UserDto(id, emailEdit, passwordEdit, fullnameEdit, avatarEdit, roleIdEdit);
 		
-			if( userService.editUser(dtoEdit) < 0 ) {
+			UserDto loginDto = (UserDto)req.getSession().getAttribute("USER_LOGIN");	
+
+			if( userService.editUser(dtoEdit, loginDto.getRoleId()) < 0 ) {
 				req.setAttribute("message" , "Chỉnh sửa thất bại");
 				req.getRequestDispatcher("/WEB-INF/views/user/edit.jsp").forward(req, resp);
 			} else {

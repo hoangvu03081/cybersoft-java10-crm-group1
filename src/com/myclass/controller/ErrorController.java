@@ -18,12 +18,12 @@ public class ErrorController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = req.getServletPath();
 		switch (action) {
-		case "403":
-			req.getRequestDispatcher("/WEB-INF/views/error/403.jsp");
+		case "/403":
+			req.getRequestDispatcher("/WEB-INF/views/error/403.jsp").forward(req, resp);
 			break;
 
-		case "404":
-			req.getRequestDispatcher("/WEB-INF/views/error/404.jsp");
+		case "/404":
+			req.getRequestDispatcher("/WEB-INF/views/error/404.jsp").forward(req, resp);
 			break;
 
 		default:

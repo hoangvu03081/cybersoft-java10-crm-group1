@@ -23,7 +23,6 @@
 
 <body>
 	<div class="d-flex justify-content-between">
-		<!-- SIDE BAR -->
 		<div id="side-bar">
             <ul class="list-group rounded-0">
                 <li class="dashboard">DASHBOARD</li>

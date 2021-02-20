@@ -28,6 +28,7 @@
                         <i class="fa fa-home mr-2"></i> Trang chủ
                     </a>
                 </li>
+                
                 <li>
                     <a href="<%= request.getContextPath() %>/project">
                         <i class="fa fa-tasks mr-2"></i> Quản lý dự án
@@ -48,7 +49,8 @@
                 </li>
                 </c:if>
             </ul>
-        </div>
+		</div>
+		<!-- END SIDE BAR -->
 
         <div id="admin-wrapper">
             <!-- HEADER -->

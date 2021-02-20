@@ -19,6 +19,7 @@
 <body>
 
     <div class="d-flex justify-content-between">
+
         <!-- SIDE BAR -->
         <div id="side-bar">
             <ul class="list-group rounded-0">
@@ -28,9 +29,11 @@
                         <i class="fa fa-home mr-2"></i> Trang chủ
                     </a>
                 </li>
+                
                 <li>
                     <a href="<%= request.getContextPath() %>/project">
                         <i class="fa fa-tasks mr-2"></i> Quản lý dự án
+
                     </a>
                 </li>
                 <c:if test="${USER_LOGIN.roleId==1||USER_LOGIN.roleId==2 }">
@@ -48,7 +51,8 @@
                 </li>
                 </c:if>
             </ul>
-        </div>
+		</div>
+		<!-- END SIDE BAR -->
 
         <div id="admin-wrapper">
             <!-- HEADER -->
