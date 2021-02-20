@@ -130,14 +130,20 @@
         </div>
     </div>
     <script>
-    	function openNav() {
-    		document.getElementById("side-bar").style.width = "250px";
-    		document.getElementById("admin-wrapper").style.marginLeft = "250px";
+	 	var clicked = true;
+    	function openOrCloseSideBar() {
+    		if (clicked){
+    			document.getElementById("side-bar").style.width = "250px";
+        		document.getElementById("admin-wrapper").style.marginLeft = "250px";
+        		clicked = false;
+    		}
+    		else{
+    			document.getElementById("side-bar").style.width = "0";
+        		document.getElementById("admin-wrapper").style.marginLeft= "0";
+        		clicked = true
+    		}
     	}
-    	function closeNav() {
-    		document.getElementById("side-bar").style.width = "0";
-    		document.getElementById("admin-wrapper").style.marginLeft= "0";
-    	}
+    	
     </script>
     <script src="<%= request.getContextPath() %>/static/js/jquery.slim.min.js"></script>
     <script src="<%= request.getContextPath() %>/static/js/popper.min.js"></script>
