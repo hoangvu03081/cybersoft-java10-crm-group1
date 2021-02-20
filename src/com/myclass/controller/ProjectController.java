@@ -16,15 +16,19 @@ import javax.servlet.http.HttpSession;
 
 import com.myclass.dto.ProjectDto;
 import com.myclass.dto.UserDto;
+import com.myclass.repository.UserRepository;
 import com.myclass.service.ProjectService;
+import com.myclass.service.UserService;
 
 @WebServlet(urlPatterns = {"/project", "/project/add", "/project/edit", "/project/delete"})
 public class ProjectController extends HttpServlet {
 	private ProjectService projectService;
+	private UserService userService;
 	
 	@Override
 	public void init() throws ServletException {
 		projectService = new ProjectService();
+		userService = new UserService();
 	}
 @Override
 protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,20 +36,21 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 	HttpSession session = req.getSession();
 	UserDto checkAuth = (UserDto) session.getAttribute("USER_LOGIN");
 	
+	
 	switch(req.getServletPath()) {
 	case "/project":
 		ArrayList<ProjectDto> projectList = null;
 		//Admin
 		if(checkAuth.getRoleId()==1)
-		projectList = (ArrayList<ProjectDto>) projectService.getAllProject();
+			projectList = (ArrayList<ProjectDto>) projectService.getAllProject();
 		
 		//Leader
 		if(checkAuth.getRoleId()==2)
-		projectList = (ArrayList<ProjectDto>) projectService.getProjectByUserLeaderId(checkAuth.getUserId());
+			projectList = (ArrayList<ProjectDto>) projectService.getProjectByUserLeaderId(checkAuth.getUserId());
 				
 		//User
 		if(checkAuth.getRoleId()==3)
-		projectList = (ArrayList<ProjectDto>) projectService.getProjectByUserId(checkAuth.getUserId());
+			projectList = (ArrayList<ProjectDto>) projectService.getProjectByUserId(checkAuth.getUserId());
 		
 		
 		
@@ -58,16 +63,23 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 		break;
 	case "/project/edit":
 		int idEdit=Integer.parseInt(req.getParameter("id"));
-		System.out.println(idEdit);
-		ProjectDto temp = projectService.getProjectById(idEdit);
-		req.setAttribute("project", temp);
-		req.getRequestDispatcher("/WEB-INF/views/project/edit.jsp").forward(req, resp);
+		if(!projectService.checkOwnProject(checkAuth.getUserId(), idEdit))
+			resp.sendRedirect(req.getContextPath()+"/403");
+		else {
+			ProjectDto temp = projectService.getProjectById(idEdit);
+			req.setAttribute("project", temp);
+			req.getRequestDispatcher("/WEB-INF/views/project/edit.jsp").forward(req, resp);
+		}
 		break;
 	case "/project/delete":
 		int idDelete = Integer.parseInt(req.getParameter("id"));
-		System.out.println(idDelete);
-		projectService.deleteProject(idDelete);
-		resp.sendRedirect(req.getContextPath()+"/project");
+		if(!projectService.checkOwnProject(checkAuth.getUserId(), idDelete))
+			resp.sendRedirect(req.getContextPath()+"/403");
+		else {
+			System.out.println(idDelete);
+			projectService.deleteProject(idDelete);
+			resp.sendRedirect(req.getContextPath()+"/project");
+		}
 		break;
 	}
 
@@ -82,7 +94,23 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
 			LocalDate startDate=LocalDate.parse(req.getParameter("startDate"));
 			LocalDate endDate=LocalDate.parse(req.getParameter("endDate"));
 			int leaderId = Integer.parseInt(req.getParameter("leaderId"));
-			projectService.addProject(new ProjectDto(-1,projectName,startDate,endDate,leaderId));
+			UserDto temp = userService.getUserById(leaderId);
+			if(temp==null) {
+				String message="USER NOT FOUND";
+				req.setAttribute("message", message);
+				req.getRequestDispatcher("/WEB-INF/views/project/add.jsp").forward(req, resp);
+			}
+			else if(temp.getRoleId()!=2)
+			{
+				String message="USER IS NOT LEADER";
+				req.setAttribute("message", message);
+				req.getRequestDispatcher("/WEB-INF/views/project/add.jsp").forward(req, resp);
+			}
+			else {
+				projectService.addProject(new ProjectDto(-1,projectName,startDate,endDate,leaderId));
+				resp.sendRedirect(req.getContextPath()+"/project");
+			}
+			
 			break;
 		case "/project/edit":
 			System.out.println("Begin");
@@ -96,9 +124,25 @@ protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws S
 			System.out.println(endDateEdit);
 			int leaderIdEdit = Integer.parseInt(req.getParameter("leaderId"));
 			System.out.println(leaderIdEdit);
-			projectService.editProject(new ProjectDto(idEdit,nameEdit,startDateEdit,endDateEdit,leaderIdEdit));
+			UserDto leader2 = userService.getUserById(leaderIdEdit);
+			if(leader2==null) {
+				String message="USER NOT FOUND";
+				req.setAttribute("message", message);
+				req.getRequestDispatcher("/WEB-INF/views/project/edit.jsp").forward(req, resp);
+			}
+			else if(leader2.getRoleId()!=2)
+			{
+				String message="USER IS NOT LEADER";
+				req.setAttribute("message", message);
+				req.getRequestDispatcher("/WEB-INF/views/project/edit.jsp").forward(req, resp);
+			}
+			else {
+				projectService.editProject(new ProjectDto(idEdit,nameEdit,startDateEdit,endDateEdit,leaderIdEdit));
+				resp.sendRedirect(req.getContextPath()+"/project");
+			}
+			
 			break;
 	}
-	resp.sendRedirect(req.getContextPath()+"/project");
+	
 }
 }

@@ -37,6 +37,20 @@ public class TaskService {
 		return result;
 	}
 	
+	public Boolean checkOwnTask(int userId,int taskId) {
+		ArrayList<Task>	taskList;
+		
+		taskList = (ArrayList<Task>) taskRepository.getTasksByUserId(userId);
+		if(taskList.isEmpty())
+			return false;
+		
+		for(Task task:taskList) 
+			if(task.getTaskId()==taskId)
+				return true;
+		
+		return false;
+	}
+	
 	public List<TaskDto> getTaskByProjectId(int id) {
 		ArrayList<TaskDto> result = null;
 		ArrayList<Task>	taskList;
@@ -55,6 +69,18 @@ public class TaskService {
 		}
 		
 		return result;
+	}
+	
+	public Boolean checkTaskInProject(int taskId,int projectId) {
+		ArrayList<Task> taskList = (ArrayList<Task>) taskRepository.getTasksByProjectId(projectId);
+		if(taskList.isEmpty())
+			return false;
+		
+		for(Task task : taskList)
+			if(task.getTaskId()==taskId)
+				return true;
+		return false;
+		
 	}
 	
 	public List<TaskDto> getTaskByStatusId(int id) {
