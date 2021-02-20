@@ -49,7 +49,7 @@
         <div id="admin-wrapper">
             <!-- HEADER -->
             <nav class="navbar navbar-expand-sm navbar-light bg-light w-100">
-                <a class="navbar-brand" href="#"><i class="fa fa-align-justify"></i></a>
+                <a class="navbar-brand" onclick="return openOrCloseSideBar();"><i class="fa fa-align-justify"></i></a>
                 <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse"
                     data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
                     aria-label="Toggle navigation"></button>
@@ -96,6 +96,22 @@
             </section>
         </div>
     </div>
+    <script>
+	 	var clicked = true;
+    	function openOrCloseSideBar() {
+    		if (clicked){
+    			document.getElementById("side-bar").style.width = "250px";
+        		document.getElementById("admin-wrapper").style.marginLeft = "250px";
+        		clicked = false;
+    		}
+    		else{
+    			document.getElementById("side-bar").style.width = "0";
+        		document.getElementById("admin-wrapper").style.marginLeft= "0";
+        		clicked = true
+    		}
+    	}
+    	
+    </script>
     <script src="<%= request.getContextPath() %>/js/jquery.slim.min.js"></script>
     <script src="<%= request.getContextPath() %>/js/popper.min.js"></script>
     <script src="<%= request.getContextPath() %>/js/bootstrap.min.js"></script>
