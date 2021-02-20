@@ -3,6 +3,8 @@ package com.myclass.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.mindrot.jbcrypt.BCrypt;
 
 import com.myclass.dto.UserDto;
@@ -77,15 +79,19 @@ public class UserService {
 		return -1;
 	}
 
-	public int editUser(UserDto dto) {
+	public int editUser(UserDto dto, int loginUserId) {
 		try {
 			User user = userRepository.getById(dto.getUserId());
 			if (user != null) {
-				user.setUserId(dto.getUserId());
 				user.setEmail(dto.getEmail());
 				user.setAvatar(dto.getAvatar());
 				user.setFullname(dto.getFullname());
-				user.setRoleId(dto.getRoleId());
+				System.out.println("[uerservice]" + (dto.getRoleId()));
+				if ( loginUserId == 1) {
+					user.setUserId(dto.getUserId());
+					user.setRoleId(dto.getRoleId());					
+				}
+				
 				if (!dto.getPassword().isEmpty()) {
 					user.setPassword(BCrypt.hashpw(dto.getPassword(), BCrypt.gensalt()));
 				}
