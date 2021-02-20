@@ -36,6 +36,36 @@ public class ProjectService {
 		return result;
 	}
 	
+	public Boolean checkOwnProject(int userId,int projectId)
+	{
+		ArrayList<Project>		projectList = (ArrayList<Project>) projectRepository.getProjectByLeaderId(userId);
+		if(projectList.isEmpty())
+			return false;
+		
+		for(Project project:projectList) {
+			if(project.getProjectId()==projectId)
+				return true;
+		
+		}
+		return false;
+		
+	}
+	
+	public Boolean checkParticipateProject(int userId,int projectId)
+	{
+		ArrayList<Project>		projectList = (ArrayList<Project>) projectRepository.getProjectByUserLeaderId(userId);
+		if(projectList.isEmpty())
+			return false;
+		
+		for(Project project:projectList) {
+			if(project.getProjectId()==projectId)
+				return true;
+		
+		}
+		return false;
+		
+	}
+	
 	public List<ProjectDto> getProjectByUserId(int id)
 	{
 		ArrayList<ProjectDto> 	result;

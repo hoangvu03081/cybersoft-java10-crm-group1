@@ -19,9 +19,9 @@
 <body>
 
     <div class="d-flex justify-content-between">
-		<!-- SIDE BAR -->
-		<div id="side-bar">
-			<ul class="list-group rounded-0">
+        <!-- SIDE BAR -->
+        <div id="side-bar">
+            <ul class="list-group rounded-0">
                 <li class="dashboard">DASHBOARD</li>
                 <li>
                     <a href="<%= request.getContextPath() %>/home">
@@ -34,16 +34,14 @@
                         <i class="fa fa-tasks mr-2"></i> Quản lý dự án
                     </a>
                 </li>
-                
-                <c:if test="${ USER_LOGIN.roleId != 3 }">
-					<li>
-						<a href="<%=request.getContextPath()%>/user">
-							<i class="fa fa-user mr-2"></i> Quản lý thành viên
-						</a>
-					</li>
-				</c:if>
-
-                <c:if test="${ USER_LOGIN.roleId == 1 }">                
+                <c:if test="${USER_LOGIN.roleId==1||USER_LOGIN.roleId==2 }">
+                <li>
+                    <a href="<%= request.getContextPath() %>/user">
+                        <i class="fa fa-user mr-2"></i> Quản lý thành viên
+                    </a>
+                </li>
+                </c:if>
+                <c:if test="${USER_LOGIN.roleId==1 }">
                 <li>
                     <a href="<%= request.getContextPath() %>/role">
                         <i class="fa fa-book mr-2"></i> Quản lý quyền
