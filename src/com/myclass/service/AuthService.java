@@ -20,12 +20,10 @@ public class AuthService {
 		if (userDto == null) {
 			return null;
 		}
-		
 		// Nếu có email phù hợp nhưng password sai cũng trả về null
 		if (!BCrypt.checkpw(password, userDto.getPassword())) {
 			return null;
 		}
-	
 		return userDto;
 	}
 }	

@@ -79,7 +79,7 @@
                         <div class="col-md-6 m-auto">
                             <div class="form-group">
                                 <label>Tên task</label>
-                                <input type="text" name="taskName" class="form-control" value="${task.taskName }" required/>
+                                <input type="text" name="taskName" class="form-control" value="${task.taskName }" <c:if test="${USER_LOGIN.roleId==3 }">readonly</c:if> required/>
                             </div>
                             <div class="form-group">
                                 <label>Ngày bắt đầu</label>
@@ -92,19 +92,24 @@
                             <div class="form-group">
                                 <label>Status</label>
                                 <select class="form-control" name="statusId">
-                                	<option value="1" <c:if test="${task.statusId==1 }">selected="selected"</c:if>>Done</option>
-								 	<option value="2" <c:if test="${task.statusId==2 }">selected="selected"</c:if>>In progress</option>
+                                	<option value="1" <c:if test="${task.statusId==1 }">selected="selected"</c:if>>In progress</option>
+								 	<option value="2" <c:if test="${task.statusId==2 }">selected="selected"</c:if>>Complete</option>
 								</select>
 								  
 								</select>
                             </div>
                             <div class="form-group">
                                 <label>ID người dùng:</label>
-								<input list="users" name="userId" class="form-control" required>
+								<input list="users" name="userId" class="form-control" <c:forEach items="${userList}" var="item">
+									<c:if test="${task.userId==item.key }">value="${item.key}"</c:if>
+								</c:forEach>
+								 required <c:if test="${USER_LOGIN.roleId==3 }">readonly</c:if>>
+								
+								
 								
 								<datalist id="users">
 								<c:forEach items="${userList}" var="item">
-									<option value="${item.userId }" <c:if test="${task.userId==item.userId }">selected="selected"</c:if> >${item.fullname}</option>
+									<option value="${item.key }"  >${item.value}</option>
 								</c:forEach>
 								  <option value="No name">
 								</datalist>

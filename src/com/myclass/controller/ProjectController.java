@@ -15,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.myclass.dto.ProjectDto;
+import com.myclass.dto.UserDto;
 import com.myclass.service.ProjectService;
 
 @WebServlet(urlPatterns = {"/project", "/project/add", "/project/edit", "/project/delete"})
-
 public class ProjectController extends HttpServlet {
 	private ProjectService projectService;
 	
@@ -28,19 +28,26 @@ public class ProjectController extends HttpServlet {
 	}
 @Override
 protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
 	HttpSession session = req.getSession();
+	UserDto checkAuth = (UserDto) session.getAttribute("USER_LOGIN");
+	
 	switch(req.getServletPath()) {
 	case "/project":
+		ArrayList<ProjectDto> projectList = null;
 		//Admin
-		
-		//if(session.getAttribute("USER_LOGIN"))
-		ArrayList<ProjectDto> projectList = (ArrayList<ProjectDto>) projectService.getAllProject();
-		
-		//User
-		//ArrayList<ProjectDto> projectList = (ArrayList<ProjectDto>) projectService.getProjectByUserId(915);
+		if(checkAuth.getRoleId()==1)
+		projectList = (ArrayList<ProjectDto>) projectService.getAllProject();
 		
 		//Leader
-		//ArrayList<ProjectDto> projectList = (ArrayList<ProjectDto>) projectService.getProjectByUserLeaderId(1);
+		if(checkAuth.getRoleId()==2)
+		projectList = (ArrayList<ProjectDto>) projectService.getProjectByUserLeaderId(checkAuth.getUserId());
+				
+		//User
+		if(checkAuth.getRoleId()==3)
+		projectList = (ArrayList<ProjectDto>) projectService.getProjectByUserId(checkAuth.getUserId());
+		
+		
 		
 		req.setAttribute("projectList", projectList);
 		req.getRequestDispatcher("/WEB-INF/views/project/index.jsp").forward(req, resp);

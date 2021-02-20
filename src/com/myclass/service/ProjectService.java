@@ -7,6 +7,7 @@ import com.myclass.dto.ProjectDto;
 import com.myclass.entity.Project;
 import com.myclass.repository.ProjectRepository;
 import com.myclass.repository.TaskRepository;
+import com.myclass.repository.UserRepository;
 
 public class ProjectService {
 	private ProjectRepository projectRepository;

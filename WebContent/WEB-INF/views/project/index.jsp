@@ -75,7 +75,9 @@
                 <h3 class="mb-3">Danh sách Project</h3>
                 <div class="row">
                     <div class="col-md-8">
-                        <a href="<%=request.getContextPath() %>/project/add" class="btn btn-primary">Thêm mới</a>
+                        <c:if test="${USER_LOGIN.roleId==1||USER_LOGIN.roleId==2 }">
+                        	<a href="<%=request.getContextPath() %>/project/add" class="btn btn-primary">Thêm mới</a>
+                        </c:if>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
@@ -93,7 +95,9 @@
                             <th>Tên Project</th>
                             <th>Ngày bắt đầu</th>
                             <th>Ngày kết thúc</th>
+                            <c:if test="${USER_LOGIN.roleId==1||USER_LOGIN.roleId==2 }">
                             <th>#</th>
+                            </c:if>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,7 +107,9 @@
 	                            <td><a href="<%= request.getContextPath() %>/task?idP=${item.projectId}">${ item.projectName }</a></td>
 	                            <td>${ item.startDate }</td>
 	                            <td>${ item.endDate }</td>
+	                            <c:if test="${USER_LOGIN.roleId==1||USER_LOGIN.roleId==2 }">
 	                            <td>
+	                            	
 	                                <a href="<%= request.getContextPath() %>/project/edit?id=${item.projectId}" class="btn btn-sm btn-info">
 	                                    <i class="fa fa-pencil-square-o"></i>
 	                                </a>
@@ -111,6 +117,7 @@
 	                                    <i class="fa fa-trash-o"></i>
 	                                </a>
 	                            </td>
+	                            </c:if>
 	                        </tr>
                         </c:forEach>
                     </tbody>

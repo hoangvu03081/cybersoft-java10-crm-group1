@@ -1,6 +1,7 @@
 package com.myclass.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -14,6 +15,11 @@ public class UserService {
 
 	public UserService() {
 		userRepository = new UserRepository();
+	}
+	
+	public HashMap<Integer,String> getHashMap()
+	{
+		return userRepository.getAllUsersHashMap();
 	}
 
 	public List<UserDto> getAllUsers() {

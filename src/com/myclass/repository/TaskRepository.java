@@ -29,7 +29,7 @@ public class TaskRepository {
 				int 	statusId	= result.getInt("STATUS_ID");
 				int		projectId	= result.getInt("PROJECT_ID");
 				int		userId		= result.getInt("USER_ID");
-				return new Task(id,taskName,startDate,endDate,statusId,projectId,userId);
+				return new Task(id,taskName,startDate,endDate,statusId,userId,projectId);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -55,7 +55,7 @@ public class TaskRepository {
 				int 	statusId	= result.getInt("STATUS_ID");
 				int		projectId	= result.getInt("PROJECT_ID");
 				int		userId		= result.getInt("USER_ID");
-				taskList.add(new Task(id,taskName,startDate,endDate,statusId,projectId,userId));
+				taskList.add(new Task(id,taskName,startDate,endDate,statusId,userId,projectId));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -81,7 +81,7 @@ public class TaskRepository {
 				LocalDate	endDate		= result.getObject("END_DATE",LocalDate.class);
 				int 	statusId	= result.getInt("STATUS_ID");
 				int		projectId	= result.getInt("PROJECT_ID");
-				taskList.add(new Task(id,taskName,startDate,endDate,statusId,projectId,userId));
+				taskList.add(new Task(id,taskName,startDate,endDate,statusId,userId,projectId));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -107,7 +107,7 @@ public class TaskRepository {
 				LocalDate	endDate		= result.getObject("END_DATE",LocalDate.class);
 				int		projectId	= result.getInt("PROJECT_ID");
 				int		userId		= result.getInt("USER_ID");
-				taskList.add(new Task(id,taskName,startDate,endDate,statusId,projectId,userId));
+				taskList.add(new Task(id,taskName,startDate,endDate,statusId,userId,projectId));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

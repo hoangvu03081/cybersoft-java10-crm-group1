@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 
@@ -90,7 +91,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Leader Id</label>
-                                <input type="text" name="leaderId" class="form-control" required/>
+                                <input type="text" name="leaderId" class="form-control" <c:if test="${USER_LOGIN.roleId==2 }">value="${USER_LOGIN.userId}" readonly</c:if> required/>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-success" disabled>Lưu lại</button>
