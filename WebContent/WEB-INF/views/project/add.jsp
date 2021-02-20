@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/bootstrap.min.css">
-    <link rel="stylesheet" href='<%= request.getContextPath() %>/static/css/style.css'>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/style.css">
 </head>
 
 <body>
@@ -50,7 +50,7 @@
         <div id="admin-wrapper">
             <!-- HEADER -->
             <nav class="navbar navbar-expand-sm navbar-light bg-light w-100">
-                <a class="navbar-brand" href="#"><i class="fa fa-align-justify"></i></a>
+                <a class="navbar-brand" onclick="return openNav();" ><i class="fa fa-align-justify"></i></a>
                 <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse"
                     data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
                     aria-label="Toggle navigation"></button>
@@ -105,7 +105,16 @@
     </div>
     
     
-    
+    <script>
+    	function openNav() {
+    		document.getElementById("side-bar").style.width = "250px";
+    		document.getElementById("admin-wrapper").style.marginLeft = "250px";
+    	}
+    	function closeNav() {
+    		document.getElementById("side-bar").style.width = "0";
+    		document.getElementById("admin-wrapper").style.marginLeft= "0";
+    	}
+    </script>
     <script src="<%= request.getContextPath() %>/static/js/jquery.slim.min.js"></script>
     <script src="<%= request.getContextPath() %>/static/js/popper.min.js"></script>
     <script src="<%= request.getContextPath() %>/static/js/bootstrap.min.js"></script>
