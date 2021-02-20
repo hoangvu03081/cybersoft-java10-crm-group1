@@ -35,22 +35,29 @@
 	<div class="d-flex justify-content-between">
 		<!-- SIDE BAR -->
 		<div id="side-bar">
-			<div class="logo">ADMIN PAGE</div>
 			<ul class="list-group rounded-0">
-				<li class="dashboard">DASHBOARD</li>
-				<li><a href="<%= request.getContextPath()%>/user"> <i class="fa fa-user mr-2"></i>
-						Quản lý thành viên
-				</a></li>
-				<li><a href="<%= request.getContextPath()%>/role"> <i class="fa fa-book mr-2"></i>
-						Quản lý quyền
-				</a></li>
-				<li><a href="#"> <i class="fa fa-cogs mr-2"></i> Cấu hình
-						hệ thống
-				</a></li>
-				<li><a href="#"> <i class="fa fa-slack mr-2"></i> Thông tin
-						khác
-				</a></li>
-			</ul>
+                <li class="dashboard">DASHBOARD</li>
+                <li>
+                    <a href="<%= request.getContextPath() %>/home">
+                        <i class="fa fa-home mr-2"></i> Trang chủ
+                    </a>
+                </li>
+                <li>
+                    <a href="<%= request.getContextPath() %>/project">
+                        <i class="fa fa-tasks mr-2"></i> Quản lý dự án
+                    </a>
+                </li>
+                <li>
+                    <a href="<%= request.getContextPath() %>/user">
+                        <i class="fa fa-user mr-2"></i> Quản lý thành viên
+                    </a>
+                </li>
+                <li>
+                    <a href="<%= request.getContextPath() %>/role">
+                        <i class="fa fa-book mr-2"></i> Quản lý quyền
+                    </a>
+                </li>
+            </ul>
 		</div>
 
 		<div id="admin-wrapper">
@@ -70,13 +77,10 @@
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#" id="dropdownId"
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								${ USER_LOGIN.fullname } </a>
-							<div class="dropdown-menu dropdown-menu-right"
-								aria-labelledby="dropdownId">
-								<a class="dropdown-item" href="">Thông tin cá nhân</a> <a
-									class="dropdown-item" href="#">Cài đặt</a> <a
-									class="dropdown-item"
-									href="<%=request.getContextPath()%>/logout">Thoát</a>
+								${ sessionScope.USER_LOGIN.fullname } </a>
+							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownId">
+								<a class="dropdown-item" href="<%= request.getContextPath() %>/user/edit?id=${sessionScope.USER_LOGIN.userId}">Chỉnh sửa thông tin cá nhân</a>
+								<a class="dropdown-item" href="<%= request.getContextPath() %>/logout">Thoát</a>
 							</div></li>
 					</ul>
 				</div>
