@@ -82,11 +82,11 @@ public class ProjectRepository {
 			ResultSet result=statement.executeQuery();
 			while(result.next())
 			{
-				int 	projectId		= result.getInt("ID");
-				String 	projectName		= result.getString("NAME");
+				int 		projectId		= result.getInt("ID");
+				String 		projectName		= result.getString("NAME");
 				LocalDate 	startDate		= result.getObject("START_DATE",LocalDate.class);
 				LocalDate	endDate			= result.getObject("END_DATE",LocalDate.class);
-				int		leaderId		= result.getInt("LEADER_ID");
+				int			leaderId		= result.getInt("LEADER_ID");
 				projectList.add(new Project(projectId,projectName,startDate,endDate,leaderId));
 			}
 			connection.close();
@@ -98,6 +98,7 @@ public class ProjectRepository {
 	}
 	
 	public List<Project> getProjectByUserId(int id) {
+		
 		String query="SELECT \r\n"
 				+ "	P.ID,\r\n"
 				+ "    P.NAME,\r\n"
@@ -108,18 +109,21 @@ public class ProjectRepository {
 				+ "ON P.ID = T.PROJECT_ID WHERE USER_ID=?";
 		Connection connection=DbConnection.getConnection();
 		ArrayList<Project> projectList = null;
+		
 		try {
+			
 			projectList = new ArrayList<Project>();
 			PreparedStatement statement = connection.prepareStatement(query);
 			statement.setInt(1, id);
 			ResultSet result=statement.executeQuery();
+			
 			while(result.next())
 			{
-				int 	projectId		= result.getInt("ID");
-				String 	projectName		= result.getString("NAME");
+				int 		projectId		= result.getInt("ID");
+				String 		projectName		= result.getString("NAME");
 				LocalDate 	startDate		= result.getObject("START_DATE",LocalDate.class);
 				LocalDate	endDate			= result.getObject("END_DATE",LocalDate.class);
-				int		leaderId		= result.getInt("LEADER_ID");
+				int			leaderId		= result.getInt("LEADER_ID");
 				projectList.add(new Project(projectId,projectName,startDate,endDate,leaderId));
 			}
 			connection.close();

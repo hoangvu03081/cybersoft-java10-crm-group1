@@ -1,6 +1,7 @@
 package com.myclass.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -16,6 +17,11 @@ public class UserService {
 
 	public UserService() {
 		userRepository = new UserRepository();
+	}
+	
+	public HashMap<Integer,String> getHashMap()
+	{
+		return userRepository.getAllUsersHashMap();
 	}
 
 	public List<UserDto> getAllUsers() {

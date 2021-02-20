@@ -3,6 +3,7 @@ package com.myclass.controller;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +15,7 @@ import com.myclass.dto.RoleDto;
 import com.myclass.dto.TaskDto;
 import com.myclass.service.RoleService;
 import com.myclass.service.TaskService;
+import com.myclass.service.UserService;
 
 @WebServlet(urlPatterns = {"/task", "/task/add", "/task/edit", "/task/delete"})
 public class TaskController extends HttpServlet{
@@ -27,8 +29,8 @@ public class TaskController extends HttpServlet{
 protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
 	int idProject = Integer.parseInt(req.getParameter("idP"));
-	
 	req.setAttribute("idP", idProject);
+	
 	
 	switch(req.getServletPath()) {
 		
@@ -48,6 +50,9 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 		resp.sendRedirect(req.getContextPath()+"/task?idP="+idProject);
 		break;
 	case "/task/edit":
+		UserService userService = new UserService();
+		HashMap<Integer,String> userList=userService.getHashMap();
+		req.setAttribute("userList", userList);
 		int editId = Integer.parseInt(req.getParameter("id"));
 		TaskDto taskEdit = taskService.getTaskById(editId);
 		req.setAttribute("task", taskEdit);

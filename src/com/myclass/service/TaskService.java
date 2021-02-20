@@ -1,16 +1,21 @@
 package com.myclass.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.myclass.dto.TaskDto;
 import com.myclass.entity.Task;
 import com.myclass.repository.TaskRepository;
+import com.myclass.repository.UserRepository;
 
 public class TaskService {
 	private TaskRepository taskRepository;
+	private UserRepository userRepository;
+	
 	public TaskService(){
-		taskRepository=new TaskRepository();
+		taskRepository = new TaskRepository();
+		userRepository = new UserRepository();
 	}
 	
 	public TaskDto getTaskById(int id) {
@@ -40,9 +45,14 @@ public class TaskService {
 		if(taskList.isEmpty())
 			return null;
 		
+		HashMap<Integer,String> userList=userRepository.getAllUsersHashMap();
 		result = new ArrayList<TaskDto>();
 		for(Task task : taskList)
+		{
 			result.add(new TaskDto(task));
+			int idUser=result.get(result.size()-1).getUserId();
+			result.get(result.size()-1).setUserName(userList.get(idUser));
+		}
 		
 		return result;
 	}

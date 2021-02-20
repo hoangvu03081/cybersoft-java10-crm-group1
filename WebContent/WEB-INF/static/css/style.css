@@ -1,18 +1,7 @@
 #side-bar{
-	/*
     width: 250px;
     min-height: 100vh;
-    */
     background: #446084;
-    height: 100%; /* 100% Full-height */
- 	width: 0; /* 0 width - change this with JavaScript */
-  	position: fixed; /* Stay in place */
-  	z-index: 1; /* Stay on top */
-  	top: 0;
-  	left: 0;
-  	overflow-x: hidden; /* Disable horizontal scroll */
-  	padding-top: 60px; /* Place content 60px from the top */
-  	transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
 }
 
 #side-bar .logo{
@@ -40,6 +29,5 @@
 }
 
 #admin-wrapper{
-    /* width: calc(100% - 250px);*/
-    width:100%;
+    width: calc(100% - 250px);
 }

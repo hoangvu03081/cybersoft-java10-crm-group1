@@ -50,7 +50,7 @@
         <div id="admin-wrapper">
             <!-- HEADER -->
             <nav class="navbar navbar-expand-sm navbar-light bg-light w-100">
-                <a class="navbar-brand" href="#"><i class="fa fa-align-justify"></i></a>
+                <a class="navbar-brand" onclick="return openNav();" ><i class="fa fa-align-justify"></i></a>
                 <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse"
                     data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
                     aria-label="Toggle navigation"></button>
@@ -72,10 +72,12 @@
 
             <!-- CONTENT -->
             <section id="admin-content" class="p-3">
-                <h3 class="mb-3">Danh sách Project</h3>
+                <h3 class="mb-3">Danh sách Task</h3>
                 <div class="row">
                     <div class="col-md-8">
+                    	<c:if test="${USER_LOGIN.roleId==1||USER_LOGIN.roleId==2 }">
                         <a href="<%=request.getContextPath() %>/task/add?idP=<%=request.getAttribute("idP") %>" class="btn btn-primary">Thêm mới</a>
+                    	</c:if>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group">
@@ -105,15 +107,20 @@
 	                            <td>${ item.taskName }</td>
 	                            <td>${ item.startDate }</td>
 	                            <td>${ item.endDate }</td>
-	                            <td>${ item.statusId }</td>
-	                            <td>${ item.userId }</td>
+	                            <td><c:if test="${ item.statusId==1 }">In progress</c:if><c:if test="${ item.statusId==2 }">Complete</c:if></td>
+	                            <td>${ item.userName }</td>
 	                            <td>
+	                            	
+	                            	<c:if test="${USER_LOGIN.roleId==1||USER_LOGIN.roleId==2||(USER_LOGIN.roleId==3&&item.userId==USER_LOGIN.userId) }">
 	                                <a href="<%= request.getContextPath() %>/task/edit?idP=<%=request.getAttribute("idP") %>&id=${item.taskId}" class="btn btn-sm btn-info">
 	                                    <i class="fa fa-pencil-square-o"></i>
 	                                </a>
+	                                </c:if>
+	                                <c:if test="${USER_LOGIN.roleId==1||USER_LOGIN.roleId==2 }">
 	                                <a href="<%= request.getContextPath() %>/task/delete?idP=<%=request.getAttribute("idP") %>&id=${item.taskId}" class="btn btn-sm btn-danger">
 	                                    <i class="fa fa-trash-o"></i>
 	                                </a>
+	                                </c:if>
 	                            </td>
 	                        </tr>
                         </c:forEach>
@@ -122,6 +129,22 @@
             </section>
         </div>
     </div>
+    <script>
+	 	var clicked = true;
+    	function openOrCloseSideBar() {
+    		if (clicked){
+    			document.getElementById("side-bar").style.width = "250px";
+        		document.getElementById("admin-wrapper").style.marginLeft = "250px";
+        		clicked = false;
+    		}
+    		else{
+    			document.getElementById("side-bar").style.width = "0";
+        		document.getElementById("admin-wrapper").style.marginLeft= "0";
+        		clicked = true
+    		}
+    	}
+    	
+    </script>
     <script src="<%= request.getContextPath() %>/static/js/jquery.slim.min.js"></script>
     <script src="<%= request.getContextPath() %>/static/js/popper.min.js"></script>
     <script src="<%= request.getContextPath() %>/static/js/bootstrap.min.js"></script>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 
@@ -12,7 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/bootstrap.min.css">
-    <link rel="stylesheet" href='<%= request.getContextPath() %>/static/css/style.css'>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/style.css">
 </head>
 
 <body>
@@ -49,7 +50,7 @@
         <div id="admin-wrapper">
             <!-- HEADER -->
             <nav class="navbar navbar-expand-sm navbar-light bg-light w-100">
-                <a class="navbar-brand" href="#"><i class="fa fa-align-justify"></i></a>
+                <a class="navbar-brand" onclick="return openOrCloseSideBar();" ><i class="fa fa-align-justify"></i></a>
                 <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse"
                     data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
                     aria-label="Toggle navigation"></button>
@@ -90,7 +91,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Leader Id</label>
-                                <input type="text" name="leaderId" class="form-control" required/>
+                                <input type="text" name="leaderId" class="form-control" <c:if test="${USER_LOGIN.roleId==2 }">value="${USER_LOGIN.userId}" readonly</c:if> required/>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-success" disabled>Lưu lại</button>
@@ -104,7 +105,22 @@
     </div>
     
     
-    
+    <script>
+	 	var clicked = true;
+    	function openOrCloseSideBar() {
+    		if (clicked){
+    			document.getElementById("side-bar").style.width = "250px";
+        		document.getElementById("admin-wrapper").style.marginLeft = "250px";
+        		clicked = false;
+    		}
+    		else{
+    			document.getElementById("side-bar").style.width = "0";
+        		document.getElementById("admin-wrapper").style.marginLeft= "0";
+        		clicked = true
+    		}
+    	}
+    	
+    </script>
     <script src="<%= request.getContextPath() %>/static/js/jquery.slim.min.js"></script>
     <script src="<%= request.getContextPath() %>/static/js/popper.min.js"></script>
     <script src="<%= request.getContextPath() %>/static/js/bootstrap.min.js"></script>

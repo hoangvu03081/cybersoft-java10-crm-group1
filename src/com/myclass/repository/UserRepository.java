@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.myclass.connection.DbConnection;
@@ -125,6 +126,30 @@ public class UserRepository {
 				user.setEmail(res.getNString("EMAIL"));
 				user.setRoleId(res.getInt("ROLE_ID"));
 				users.add(user);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {conn.close();} catch (SQLException e) {}
+		}
+		return users;
+
+	}
+	
+	public HashMap<Integer,String> getAllUsersHashMap() {
+
+		String querry = "SELECT * FROM CRM.USER";
+		HashMap<Integer,String> users = new HashMap<Integer,String>();
+		Connection conn = DbConnection.getConnection();
+
+		try {
+			PreparedStatement statement = conn.prepareStatement(querry);
+			ResultSet res = statement.executeQuery();
+			while (res.next()) {
+				int id 		= res.getInt("ID");
+				String name	= res.getString("FULLNAME");
+				users.put(id,name);
 			}
 			
 		} catch (SQLException e) {
