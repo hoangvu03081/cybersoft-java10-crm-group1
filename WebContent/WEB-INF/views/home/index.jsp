@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 
@@ -18,36 +19,40 @@
 <body>
 
     <div class="d-flex justify-content-between">
-        <!-- SIDE BAR -->
-        <div id="side-bar">
-        	<!-- 
-        	<div class="logo">ADMIN PAGE</div>
-        	 -->
-            
-            <ul class="list-group rounded-0">
+		<!-- SIDE BAR -->
+		<div id="side-bar">
+			<ul class="list-group rounded-0">
                 <li class="dashboard">DASHBOARD</li>
                 <li>
                     <a href="<%= request.getContextPath() %>/home">
                         <i class="fa fa-home mr-2"></i> Trang chủ
                     </a>
                 </li>
+                
                 <li>
                     <a href="<%= request.getContextPath() %>/project">
                         <i class="fa fa-tasks mr-2"></i> Quản lý dự án
                     </a>
                 </li>
-                <li>
-                    <a href="<%= request.getContextPath() %>/user">
-                        <i class="fa fa-user mr-2"></i> Quản lý thành viên
-                    </a>
-                </li>
+                
+                <c:if test="${ USER_LOGIN.roleId != 3 }">
+					<li>
+						<a href="<%=request.getContextPath()%>/user">
+							<i class="fa fa-user mr-2"></i> Quản lý thành viên
+						</a>
+					</li>
+				</c:if>
+
+                <c:if test="${ USER_LOGIN.roleId == 1 }">                
                 <li>
                     <a href="<%= request.getContextPath() %>/role">
                         <i class="fa fa-book mr-2"></i> Quản lý quyền
                     </a>
                 </li>
+                </c:if>
             </ul>
-        </div>
+		</div>
+		<!-- END SIDE BAR -->
 
         <div id="admin-wrapper">
             <!-- HEADER -->

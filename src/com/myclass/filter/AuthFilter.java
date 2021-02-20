@@ -81,12 +81,6 @@ public class AuthFilter implements Filter {
 			return;
 		}
 
-		if (action.startsWith("/task/edit") && (Integer.parseInt(req.getParameter("id")) == user.getUserId())
-				&& (roleName.equals("ROLE_MEMBER") || roleName.equals("ROLE_LEADER"))) {
-			chain.doFilter(request, response);
-			return;
-		}
-
 		if ( (action.equals("/task/add") || action.equals("/task/delete")) && roleName.equals("ROLE_MEMBER")) {
 			resp.sendRedirect(req.getContextPath() + "/403");
 			return;
