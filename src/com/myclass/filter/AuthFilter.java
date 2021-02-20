@@ -25,15 +25,26 @@ public class AuthFilter implements Filter {
 		HttpServletResponse resp = (HttpServletResponse) response;
 
 		String action = req.getServletPath();
-		if (action.equals("/login") || action.equals("/logout")) {
+		HttpSession session = req.getSession();
+		UserDto user = (UserDto) session.getAttribute("USER_LOGIN");
+		
+		if ( action.equals("/login") ) {
+			if (user != null) {
+				resp.sendRedirect(req.getContextPath() + "/home");
+				return;
+			}
 			chain.doFilter(request, response);
 			return;
 		}
+		
 
-		HttpSession session = req.getSession();
-		UserDto user = (UserDto) session.getAttribute("USER_LOGIN");
 		if (user == null) {
 			resp.sendRedirect(req.getContextPath() + "/login");
+			return;
+		}
+
+		if ( action.equals("/login") ) {
+			resp.sendRedirect(req.getContextPath() + "/home");
 			return;
 		}
 
@@ -55,27 +66,32 @@ public class AuthFilter implements Filter {
 			return;
 		}
 
-		if ( (action.startsWith("/user/delete") || action.startsWith("/user/edit")) && 
-				roleName.equals("ROLE_LEADER")) {
+		if ((action.startsWith("/user/delete") || action.startsWith("/user/edit")) && roleName.equals("ROLE_LEADER")) {
 			resp.sendRedirect(req.getContextPath() + "/403");
 			return;
 		}
 
-		if ((action.equals("/project/edit") || action.equals("/project/delte")) && roleName.equals("ROLE_MEMBER")) {
+		if ((action.equals("/project/add") || action.equals("/project/edit") || action.equals("/project/delete")) && roleName.equals("ROLE_MEMBER")) {
+			resp.sendRedirect(req.getContextPath() + "/403");
+			return;
+		}
+
+		if (action.equals("/project/delete") && roleName.equals("ROLE_LEADER")) {
+			resp.sendRedirect(req.getContextPath() + "/403");
+			return;
+		}
+
+		if (action.startsWith("/task/edit") && (Integer.parseInt(req.getParameter("id")) == user.getUserId())
+				&& (roleName.equals("ROLE_MEMBER") || roleName.equals("ROLE_LEADER"))) {
+			chain.doFilter(request, response);
+			return;
+		}
+
+		if ( (action.equals("/task/add") || action.equals("/task/delete")) && roleName.equals("ROLE_MEMBER")) {
 			resp.sendRedirect(req.getContextPath() + "/403");
 			return;
 		}
 		
-		if ( action.equals("/project/delete") && roleName.equals("ROLE_LEADER")) {
-			resp.sendRedirect(req.getContextPath() + "/403");
-			return;
-		}
-
-		if ((action.equals("/task/edit") || action.equals("/task/delte")) && roleName.equals("ROLE_MEMBER")) {
-			resp.sendRedirect(req.getContextPath() + "/403");
-			return;
-		}
-
 		chain.doFilter(request, response);
 
 	}
