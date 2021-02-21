@@ -82,10 +82,10 @@
 	            		<div class="d-flex flex-column m-auto">
 	            			<div class="card-body text-center">
 	            				<span class="text-uppercase">
-	            				<a class="" href="">Complete tasks</a>
+	            				<a class="" href="">Completed tasks</a>
 	            				</span>
 	            			
-	            				<h1>12</h1>
+	            				<h1>${taskCompleted[0]}</h1>
 	            			</div>       			
 	            		</div> 
             		</div>
@@ -93,10 +93,10 @@
 	            		<div class="d-flex flex-column m-auto">
 	            			<div class="card-body text-center">
 	            				<span class="text-uppercase">
-	            				<a class="" href="">In progress tasks</a>
+	            				<a class="" href="">Total tasks</a>
 		            			</span>
 		            			
-		            			<h1>12</h1>
+		            			<h1>${taskCompleted[1]}</h1>
 	            			</div>
             			</div>
             		</div>
