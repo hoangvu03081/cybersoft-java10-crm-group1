@@ -21,8 +21,8 @@ public class AuthController extends HttpServlet {
 	
 	private UserService userService;
 	private AuthService authService;
-	@Override
-	public void init() throws ServletException {
+
+	public AuthController() {
 		userService = new UserService();
 		authService = new AuthService();
 	}
@@ -51,6 +51,7 @@ public class AuthController extends HttpServlet {
 		case "/login":	
 			String email = req.getParameter("email");
 			String pass = req.getParameter("password");
+
 			UserDto loginUser = authService.login(email, pass);
 			if (loginUser == null) {
 				req.setAttribute("message", "Sai mật khẩu hoặc email.");

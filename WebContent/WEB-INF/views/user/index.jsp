@@ -24,7 +24,7 @@
 	<div class="d-flex justify-content-between">
 		<!-- SIDE BAR -->
 		<div id="side-bar">
-			<ul class="list-group rounded-0">
+            <ul class="list-group rounded-0">
                 <li class="dashboard">DASHBOARD</li>
                 <li>
                     <a href="<%= request.getContextPath() %>/home">
@@ -36,18 +36,22 @@
                         <i class="fa fa-tasks mr-2"></i> Quản lý dự án
                     </a>
                 </li>
+                <c:if test="${USER_LOGIN.roleId==1||USER_LOGIN.roleId==2 }">
                 <li>
                     <a href="<%= request.getContextPath() %>/user">
                         <i class="fa fa-user mr-2"></i> Quản lý thành viên
                     </a>
                 </li>
+                </c:if>
+                <c:if test="${USER_LOGIN.roleId==1 }">
                 <li>
                     <a href="<%= request.getContextPath() %>/role">
                         <i class="fa fa-book mr-2"></i> Quản lý quyền
                     </a>
                 </li>
+                </c:if>
             </ul>
-		</div>
+        </div>
 		<!-- END SIDE BAR -->
 
 		<div id="admin-wrapper">
@@ -77,15 +81,18 @@
 			<section id="admin-content" class="p-3">
 				<h3 class="mb-3">Danh sách thành viên</h3>
 				<div class="row">
-					<div class="col-md-8">
-						<a href="<%= request.getContextPath() %>/user/add" class="btn btn-primary">Thêm mới</a>
-					</div>
+					<c:if test="${ USER_LOGIN.roleId == 1 }">
+						<div class="col-md-8">
+							<a href="<%=request.getContextPath()%>/user/add" class="btn btn-primary">Thêm mới</a>
+						</div>
+					</c:if>
 					<div class="col-md-4">
 						<div class="input-group">
 							<input type="text" class="form-control" placeholder="Tìm kiếm...">
 							<div class="input-group-append">
-								<span class="input-group-text" id="basic-addon2"><i
-									class="fa fa-search"></i></span>
+								<span class="input-group-text" id="basic-addon2">
+									<i class="fa fa-search"></i>
+								</span>
 							</div>
 						</div>
 					</div>
@@ -97,7 +104,9 @@
 							<th>Họ Tên</th>
 							<th>Email</th>
 							<th>Chức vụ</th>
-							<th>Lựa chọn</th>
+							<c:if test="${ USER_LOGIN.roleId == 1 }">
+								<th>Lựa chọn</th>
+							</c:if>
 						</tr>
 					</thead>
 					<tbody>
@@ -107,12 +116,15 @@
 								<td>${ item.fullname }</td>
 								<td>${ item.email }</td>
 								<td>${ item.roleDescription }</td>
-								<td><a href="<%=request.getContextPath()%>/user/edit?id=${ item.userId }"
-									class="btn btn-sm btn-info"> <i
-										class="fa fa-pencil-square-o"></i>
-								</a> <a href="<%=request.getContextPath()%>/user/delete?id=${ item.userId }"
-									class="btn btn-sm btn-danger"> <i class="fa fa-trash-o"></i>
-								</a></td>
+								<c:if test="${ USER_LOGIN.roleId == 1 }">
+									<td><a href="<%=request.getContextPath()%>/user/edit?id=${ item.userId }"
+											class="btn btn-sm btn-info">
+											<i class="fa fa-pencil-square-o"></i>
+										</a> <a href="<%=request.getContextPath()%>/user/delete?id=${ item.userId }"
+											class="btn btn-sm btn-danger">
+											<i class="fa fa-trash-o"></i>
+										</a></td>
+								</c:if>
 							</tr>
 						</c:forEach>
 					</tbody>

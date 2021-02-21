@@ -68,12 +68,10 @@ public class UserRepository {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-			}
-		}
+		} 
+//		finally {
+//			try {conn.close();} catch (SQLException e) {}
+//		}
 
 		return user;
 	}

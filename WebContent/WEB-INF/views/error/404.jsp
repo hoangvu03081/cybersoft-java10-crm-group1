@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Acess denied</title>
+<title>Not found</title>
 <style type="text/css">
 body {
 	font-family: 'Ropa Sans', sans-serif;
@@ -40,9 +40,8 @@ body {
 <body>
 	<div class="error-main">
 		<h1>Oops!</h1>
-		<div class="error-heading">403</div>
-		<p>You do not have permission to access the document or program
-			that you requested.</p>
+		<div class="error-heading">404</div>
+		<p>Page not found.</p>
 	</div>
 </body>
 </html>
