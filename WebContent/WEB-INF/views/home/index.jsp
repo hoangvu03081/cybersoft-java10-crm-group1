@@ -13,7 +13,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="<%= request.getContextPath() %>/static/css/style.css">
-</head>
+    </head>
 
 <body>
 
@@ -72,6 +72,31 @@
 
             <!-- CONTENT -->
             <section id="admin-content" class="p-3">
+            	<div class="row jumbotron" style="margin: 15px 15px 15px 15px">
+            		<div class="offset-md-2 col-md-3 card" style="height: 150px">
+	            		<div class="d-flex flex-column m-auto">
+	            			<div class="card-body text-center">
+	            				<span class="text-uppercase">
+	            				<a class="" href="">Complete tasks</a>
+	            				</span>
+	            			
+	            				<h1>12</h1>
+	            			</div>       			
+	            		</div> 
+            		</div>
+            		<div class="offset-md-2 col-md-3 card" style="height: 150px">
+	            		<div class="d-flex flex-column m-auto">
+	            			<div class="card-body text-center">
+	            				<span class="text-uppercase">
+	            				<a class="" href="">In progress tasks</a>
+		            			</span>
+		            			
+		            			<h1>12</h1>
+	            			</div>
+            			</div>
+            		</div>
+            	</div>
+            	<br>
                 <div class="row">
                     <div class="col-md-6">
                         <canvas id="myChart" width="400" height="400"></canvas>
