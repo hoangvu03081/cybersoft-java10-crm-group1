@@ -49,7 +49,7 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 	case "/task":
 		ArrayList<TaskDto> taskList = (ArrayList<TaskDto>) taskService.getTaskByProjectId(idProject);
 		req.setAttribute("taskList", taskList);
-		ArrayList<Integer> taskCompleted=(ArrayList<Integer>) taskService.getCompletedTaskFromProjectId(checkAuth.getUserId());
+		ArrayList<Integer> taskCompleted=(ArrayList<Integer>) taskService.getCompletedTaskFromProjectId(idProject);
 		req.setAttribute("taskCompleted", taskCompleted);
 		req.getRequestDispatcher("/WEB-INF/views/task/index.jsp").forward(req, resp);
 		break;
