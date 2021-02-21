@@ -91,6 +91,31 @@
                         </div>
                     </div>
                 </div>
+                <div class="row jumbotron" style="margin: 15px 15px 15px 15px">
+            		<div class="offset-md-2 col-md-3 card" style="height: 150px">
+	            		<div class="d-flex flex-column m-auto">
+	            			<div class="card-body text-center">
+	            				<span class="text-uppercase">
+	            				<a class="" href="">Completed tasks</a>
+	            				</span>
+	            			
+	            				<h1>${taskCompleted[0]}</h1>
+	            			</div>       			
+	            		</div> 
+            		</div>
+            		<div class="offset-md-2 col-md-3 card" style="height: 150px">
+	            		<div class="d-flex flex-column m-auto">
+	            			<div class="card-body text-center">
+	            				<span class="text-uppercase">
+	            				<a class="" href="">Total tasks</a>
+		            			</span>
+		            			
+		            			<h1>${taskCompleted[1]}</h1>
+	            			</div>
+            			</div>
+            		</div>
+            	</div>
+            	<br>
                 <table class="table table-bordered table-hover mt-3">
                     <thead>
                         <tr>
