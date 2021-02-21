@@ -40,7 +40,7 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 	
 	int idProject = Integer.parseInt(req.getParameter("idP"));
 	req.setAttribute("idP", idProject);
-	if(!projectService.checkParticipateProject(checkAuth.getUserId(), idProject))
+	if(checkAuth.getRoleId()!=1&&!projectService.checkParticipateProject(checkAuth.getUserId(), idProject))
 		resp.sendRedirect(req.getContextPath()+"/403");
 	
 	else {

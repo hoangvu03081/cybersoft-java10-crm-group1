@@ -71,6 +71,26 @@ public class TaskService {
 		return result;
 	}
 	
+	public List<Integer> getCompletedTaskFromUserId(int userId){
+			ArrayList<Integer> result = null;
+			ArrayList<Task> taskList = (ArrayList<Task>) taskRepository.getTasksByUserId(userId);
+			
+			if(taskList==null||taskList.isEmpty())
+				return null;
+			
+			result=new ArrayList<Integer>();
+			int countTotal=0;
+			int countComplete=0;
+			for(Task task:taskList) {
+				if(task.getStatusId()==2)
+					++countComplete;
+				++countTotal;
+			}
+			result.add(countComplete);
+			result.add(countTotal);
+			return result;
+	}
+	
 	public Boolean checkTaskInProject(int taskId,int projectId) {
 		ArrayList<Task> taskList = (ArrayList<Task>) taskRepository.getTasksByProjectId(projectId);
 		if(taskList.isEmpty())
