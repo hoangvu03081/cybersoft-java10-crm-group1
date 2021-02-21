@@ -62,7 +62,7 @@ public class AuthFilter implements Filter {
 			chain.doFilter(request, response);
 			return;
 		}
-
+		
 		if (action.startsWith("/user") && roleName.equals("ROLE_MEMBER")) {
 			resp.sendRedirect(req.getContextPath() + "/403");
 			return;

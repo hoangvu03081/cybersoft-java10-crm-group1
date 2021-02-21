@@ -27,7 +27,6 @@ public class UserService {
 	public List<UserDto> getAllUsers() {
 		List<UserDto> dtos = new ArrayList<UserDto>();
 		List<User> users = userRepository.getAllUsers();
-		System.out.println("[DEBUG_UserService]");
 		for (User user : users) {
 			UserDto dto = new UserDto();
 			dto.setUserId(user.getUserId());
@@ -44,19 +43,9 @@ public class UserService {
 		return userRepository.getAllWithRoleDescription();
 	}
 
-//	public UserDto getUserByEmail(String email) {
-//		UserDto dto = null;
-//		User user = userRepository.getByEmail(email);
-//		if (user != null) {
-//			dto = new UserDto();
-//			dto.setUserId(user.getUserId());
-//			dto.setFullname(user.getFullname());
-//			dto.setAvatar(user.getAvatar());
-//			dto.setEmail(user.getEmail());
-//			dto.setRoleId(user.getRoleId());
-//		}
-//		return dto;
-//	}
+	public UserDto getUserByEmail(String email) {
+		return userRepository.getByEmail(email);
+	}
 	
 	public UserDto getUserById(int id) {
 		UserDto dto = null;
@@ -92,7 +81,7 @@ public class UserService {
 				user.setEmail(dto.getEmail());
 				user.setAvatar(dto.getAvatar());
 				user.setFullname(dto.getFullname());
-				System.out.println("[uerservice]" + (dto.getRoleId()));
+
 				if ( loginUserId == 1) {
 					user.setUserId(dto.getUserId());
 					user.setRoleId(dto.getRoleId());					
