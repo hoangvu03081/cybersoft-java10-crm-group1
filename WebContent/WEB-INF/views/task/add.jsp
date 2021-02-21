@@ -75,7 +75,7 @@
 
             <!-- CONTENT -->
             <section id="admin-content" class="p-3">
-                <h3 class="mb-4 text-center">Thêm mới quyền</h3>
+                <h3 class="mb-4 text-center">Thêm mới task</h3>
                 <p class="text-center text-danger">${ message }</p>
                 <form method="post" action="<%= request.getContextPath() %>/task/add?idP=<%=request.getAttribute("idP")%>">
                     <div class="row">
