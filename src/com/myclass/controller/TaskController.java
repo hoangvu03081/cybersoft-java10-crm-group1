@@ -49,6 +49,13 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 	case "/task":
 		ArrayList<TaskDto> taskList = (ArrayList<TaskDto>) taskService.getTaskByProjectId(idProject);
 		req.setAttribute("taskList", taskList);
+		if (!taskList.isEmpty()) {
+			System.out.println("1");
+		}
+		ArrayList<Integer> taskCompleted=(ArrayList<Integer>) taskService.getCompletedTaskFromUserId(checkAuth.getUserId());
+		req.setAttribute("taskCompleted", taskCompleted);
+		System.out.println(taskCompleted.get(0));
+		System.out.println(taskCompleted.get(1));
 		req.getRequestDispatcher("/WEB-INF/views/task/index.jsp").forward(req, resp);
 		break;
 	case "/task/add":
