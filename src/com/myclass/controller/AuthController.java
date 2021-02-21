@@ -19,11 +19,9 @@ public class AuthController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	
-	private UserService userService;
 	private AuthService authService;
 
 	public AuthController() {
-		userService = new UserService();
 		authService = new AuthService();
 	}
 	@Override
