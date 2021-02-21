@@ -1,0 +1,4 @@
+ID,NAME,DESCRIPTION
+1,ROLE_ADMIN,Administrator
+2,ROLE_LEADER,"Team Leader"
+3,ROLE_MEMBER,User
