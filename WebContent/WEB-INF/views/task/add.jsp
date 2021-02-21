@@ -95,8 +95,8 @@
                             <div class="form-group">
                                 <label>Status</label>
                                 <select class="form-control" name="statusId">
-                                	<option value="1">Done</option>
-								 	<option value="2">In progress</option>
+                                	<option value="1">In progress</option>
+								 	<option value="2">Complete</option>
 								</select>
                             </div>
                             <div class="form-group">

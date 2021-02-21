@@ -63,7 +63,7 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 		break;
 	case "/project/edit":
 		int idEdit=Integer.parseInt(req.getParameter("id"));
-		if(!projectService.checkOwnProject(checkAuth.getUserId(), idEdit))
+		if(checkAuth.getRoleId()!=1&&!projectService.checkOwnProject(checkAuth.getUserId(), idEdit))
 			resp.sendRedirect(req.getContextPath()+"/403");
 		else {
 			ProjectDto temp = projectService.getProjectById(idEdit);
@@ -73,7 +73,7 @@ protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws Se
 		break;
 	case "/project/delete":
 		int idDelete = Integer.parseInt(req.getParameter("id"));
-		if(!projectService.checkOwnProject(checkAuth.getUserId(), idDelete))
+		if(checkAuth.getRoleId()!=1&&!projectService.checkOwnProject(checkAuth.getUserId(), idDelete))
 			resp.sendRedirect(req.getContextPath()+"/403");
 		else {
 			System.out.println(idDelete);
