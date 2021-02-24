@@ -46,6 +46,10 @@ public class UserController extends HttpServlet {
 			int id = Integer.parseInt(req.getParameter("id"));
 			req.setAttribute("user", userService.getUserById(id));
 			req.setAttribute("roles", roleService.getAllRoles());
+			String previousPath = req.getHeader("Referer");
+			String[] previousServletPath = previousPath.split("/");
+			String previsousServlet = previousServletPath[ previousServletPath.length - 1 ];
+			req.setAttribute("returnServlet", previsousServlet);
 			req.getRequestDispatcher("/WEB-INF/views/user/edit.jsp").forward(req, resp);
 			break;
 			
@@ -106,6 +110,7 @@ public class UserController extends HttpServlet {
 					session.removeAttribute("USER_LOGIN");
 					session.setAttribute("USER_LOGIN", userService.getUserByEmail(emailEdit));
 				}
+				req.setAttribute("returnServlet", req.getParameter("returnServlet"));
 				req.setAttribute("user", userService.getUserById(id));
 				req.setAttribute("roles", roleService.getAllRoles());
 				req.setAttribute("message", "Chỉnh sửa thành công");
